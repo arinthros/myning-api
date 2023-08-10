@@ -4,6 +4,11 @@ import { NextResponse } from "next/server";
 import { validToken } from "../key-check";
 import { PlayerStats } from "@prisma/client";
 
+// @ts-ignore
+BigInt.prototype.toJSON = function () {
+  return this.toString();
+};
+
 const defaultStats: Omit<PlayerStats, 'id' | 'playerId'> = {
   level: 0,
   experience: BigInt(0),
