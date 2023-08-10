@@ -27,10 +27,10 @@ model PlayerStats {
   player   Player @relation(fields: [playerId], references: [id])
   playerId Int @unique
   level Int
-  experience BigInt
+  experience String
   enemiesDefeated Int
   deaths Int
-  timePlayed BigInt
+  timePlayed String
   tripsFinished Int
   battlesWon Int
   mineralsMined Int

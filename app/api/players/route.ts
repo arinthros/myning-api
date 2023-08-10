@@ -4,17 +4,12 @@ import { NextResponse } from "next/server";
 import { validToken } from "../key-check";
 import { PlayerStats } from "@prisma/client";
 
-// @ts-ignore
-BigInt.prototype.toJSON = function () {
-  return this.toString();
-};
-
 const defaultStats: Omit<PlayerStats, 'id' | 'playerId'> = {
   level: 0,
-  experience: BigInt(0),
+  experience: '0',
   enemiesDefeated: 0,
   deaths: 0,
-  timePlayed: BigInt(0),
+  timePlayed: '0',
   tripsFinished: 0,
   battlesWon: 0,
   mineralsMined: 0,
