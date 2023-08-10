@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import { validToken } from "../../key-check";
 import { headers } from "next/headers";
 
-export async function GET(req: Request) {
-  const { id } = await req.json();
+export async function GET(req: Request, { params }: { params: { id: string } }) {
+  const id = parseInt(params.id, 10)
+
   const player = await prisma.player.findUnique({
     where: {
       id,
@@ -21,7 +22,8 @@ export async function GET(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  const id = parseInt(params.id, 10)
   const headersList = headers()
   const token = headersList.get('authorization')
 
@@ -29,7 +31,6 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { id } = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
       id,
