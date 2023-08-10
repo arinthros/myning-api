@@ -2,18 +2,6 @@ import prisma from "@/lib/prisma";
 import { headers } from 'next/headers'
 import { NextResponse } from "next/server";
 import { validToken } from "../key-check";
-import { PlayerStats } from "@prisma/client";
-
-const defaultStats: Omit<PlayerStats, 'id' | 'playerId'> = {
-  level: 0,
-  experience: '0',
-  enemiesDefeated: 0,
-  deaths: 0,
-  timePlayed: '0',
-  tripsFinished: 0,
-  battlesWon: 0,
-  mineralsMined: 0,
-}
 
 export async function POST(req: Request) {
   const headersList = headers()
@@ -37,9 +25,7 @@ export async function POST(req: Request) {
         id,
         name,
         playerStats: {
-          create: {
-            ...defaultStats
-          }
+          create: {}
         }
       },
     });
