@@ -4,7 +4,10 @@
     "dev": "prisma generate && next dev",
     "build": "prisma generate && prisma db push && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "api-generate": "prisma generate",
+    "api-push": "prisma db push",
+    "api-migrate": "prisma db migrate"
   },
   "dependencies": {
     "@prisma/client": "^4.14.0",
