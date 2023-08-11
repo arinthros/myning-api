@@ -19,8 +19,8 @@ model User {
 model Player {
   id    Int          @id
   name  String       @unique
-  icon  String
-  level Int
+  icon  String       @default("👨🏾‍🌾")
+  level Int          @default(1)
   stats PlayerStats?
 }
 
@@ -33,7 +33,7 @@ model PlayerStats {
   battles_won        Int    @default(0)
   deaths             Int    @default(0)
   enemies_defeated   Int    @default(0)
-  experience         Int    @default(0)
+  experienced_earned Int    @default(0)
   gold_earned        Int    @default(0)
   gold_spent_on_gear Int    @default(0)
   minerals_mined     Int    @default(0)
