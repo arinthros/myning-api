@@ -3,16 +3,19 @@ import { NextResponse } from "next/server";
 import { validToken } from "../../key-check";
 import { headers } from "next/headers";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id, 10)
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const id = parseInt(params.id, 10);
 
   const player = await prisma.player.findUnique({
     where: {
       id,
     },
     include: {
-      playerStats: true
-    }
+      stats: true,
+    },
   });
 
   if (!player) {
@@ -22,12 +25,15 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id, 10)
-  const headersList = headers()
-  const token = headersList.get('authorization')
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const id = parseInt(params.id, 10);
+  const headersList = headers();
+  const token = headersList.get("authorization");
 
-  if (!token || !validToken(token?.split(' ')[1])) {
+  if (!token || !validToken(token?.split(" ")[1])) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
