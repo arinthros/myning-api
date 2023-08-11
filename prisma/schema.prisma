@@ -25,7 +25,7 @@ model Player {
   updated_dt DateTime       @updatedAt
   name       String         @unique
   user       User?          @relation(fields: [user_id], references: [id])
-  user_id    String         @unique
+  user_id    String?         @unique
   icon       String         @default("👨🏾‍🌾")
   level      Int            @default(1)
   stats      PlayerStats?
