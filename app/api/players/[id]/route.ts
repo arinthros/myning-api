@@ -7,7 +7,7 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const id = parseInt(params.id, 10);
+  const id = params.id;
 
   const player = await prisma.player.findUnique({
     where: {
@@ -29,7 +29,7 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const id = parseInt(params.id, 10);
+  const id = params.id;
   const headersList = headers();
   const token = headersList.get("authorization");
 

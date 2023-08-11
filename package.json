@@ -7,7 +7,8 @@
     "lint": "next lint",
     "api-generate": "prisma generate",
     "api-push": "prisma db push",
-    "api-migrate": "prisma db migrate"
+    "api-migrate": "prisma db migrate",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@prisma/client": "^4.14.0",

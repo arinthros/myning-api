@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       String    @id @default(uuid())
   email    String @unique
   password String
 }
 
 model Player {
-  id    Int          @id
+  id    String       @id
   name  String       @unique
   icon  String       @default("👨🏾‍🌾")
   level Int          @default(1)
@@ -27,7 +27,7 @@ model Player {
 model PlayerStats {
   id                  String @id @default(uuid())
   player              Player @relation(fields: [player_id], references: [id])
-  player_id           Int    @unique
+  player_id           String    @unique
   armor_purchased     Int    @default(0)
   army_defeats        Int    @default(0)
   battles_won         Int    @default(0)
@@ -47,15 +47,15 @@ model PlayerStats {
 }
 
 model Mine {
-  id         Int        @id @default(autoincrement())
+  id         String     @id
   name       String     @unique
-  mine_stats MineStats?
+  stats MineStats?
 }
 
 model MineStats {
   id       String @id @default(uuid())
   mine     Mine   @relation(fields: [mine_id], references: [id])
-  mine_id  Int    @unique
+  mine_id  String    @unique
   minutes  Float
   kills    Int
   minerals Int
