@@ -11,52 +11,60 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String @unique
-  password String
+  id         String    @id @default(uuid())
+  created_dt DateTime  @db.DateTime()
+  email      String    @unique
+  password   String
+  player     Player?
 }
 
 model Player {
-  id    String       @id
-  name  String       @unique
-  icon  String       @default("👨🏾‍🌾")
-  level Int          @default(1)
-  stats PlayerStats?
+  id         String         @id
+  created_dt DateTime       @db.DateTime()
+  name       String         @unique
+  user       User?          @relation(fields: [user_id], references: [id])
+  user_id    String         @unique
+  icon       String         @default("👨🏾‍🌾")
+  level      Int            @default(1)
+  stats      PlayerStats?
 }
 
 model PlayerStats {
-  id                  String @id @default(uuid())
-  player              Player @relation(fields: [player_id], references: [id])
+  id                  String    @id @default(uuid())
+  created_dt          DateTime  @db.DateTime()
+  player              Player    @relation(fields: [player_id], references: [id])
   player_id           String    @unique
-  armor_purchased     Int    @default(0)
-  army_defeats        Int    @default(0)
-  battles_won         Int    @default(0)
-  deaths              Int    @default(0)
-  enemies_defeated    Int    @default(0)
-  experienced_earned  Int    @default(0)
-  gold_earned         Int    @default(0)
-  gold_spent_on_gear  Int    @default(0)
-  minerals_mined      Int    @default(0)
-  plants_harvested    Int    @default(0)
-  weapons_purchased   Int    @default(0)
-  taxes_paid          Float  @default(0.0)
-  soul_credits_earned Float  @default(0.0)
-  soiled_plants       Int    @default(0)
-  time_played         String @default("0")
-  trips_finished      Int    @default(0)
+  armor_purchased     Int       @default(0)
+  army_defeats        Int       @default(0)
+  battles_won         Int       @default(0)
+  deaths              Int       @default(0)
+  enemies_defeated    Int       @default(0)
+  experienced_earned  Int       @default(0)
+  gold_earned         Int       @default(0)
+  gold_spent_on_gear  Int       @default(0)
+  minerals_mined      Int       @default(0)
+  plants_harvested    Int       @default(0)
+  weapons_purchased   Int       @default(0)
+  taxes_paid          Float     @default(0.0)
+  soul_credits_earned Float     @default(0.0)
+  soiled_plants       Int       @default(0)
+  time_played         String    @default("0")
+  trips_finished       Int       @default(0)
 }
 
 model Mine {
   id         String     @id
+  created_dt DateTime   @db.DateTime()
   name       String     @unique
-  stats MineStats?
+  stats      MineStats?
 }
 
 model MineStats {
-  id       String @id @default(uuid())
-  mine     Mine   @relation(fields: [mine_id], references: [id])
-  mine_id  String    @unique
-  minutes  Float
-  kills    Int
-  minerals Int
+  id         String    @id @default(uuid())
+  created_dt DateTime  @db.DateTime()
+  mine       Mine      @relation(fields: [mine_id], references: [id])
+  mine_id    String    @unique
+  minutes    Float
+  kills      Int
+  minerals   Int
 }

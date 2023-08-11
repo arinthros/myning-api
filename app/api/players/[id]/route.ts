@@ -54,3 +54,39 @@ export async function DELETE(
     return NextResponse.json({});
   }
 }
+
+export async function PATCH(req: Request) {
+  const headersList = headers();
+  const token = headersList.get("authorization");
+
+  if (!token || !validToken(token?.split(" ")[1])) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id, name, level, icon, stats } = await req.json();
+  const exists = await prisma.player.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!exists) {
+    return NextResponse.json({ error: "Player not found" }, { status: 404 });
+  } else {
+    const playerStats = await prisma.player.update({
+      where: {
+        id,
+      },
+      data: {
+        id,
+        name,
+        level,
+        icon,
+        stats: {
+          update: stats
+        }
+      },
+    });
+    return NextResponse.json(playerStats);
+  }
+}
