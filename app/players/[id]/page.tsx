@@ -17,12 +17,12 @@ export default async function Page({ params }: { params: { id: string } }) {
         <ul>
           {Object.entries(player.stats).reduce(
             (stats: Array<React.ReactElement>, playerStat) => {
-              if (["id", "player_id"].includes(playerStat[0])) {
+              if (["id", "player_id", "created_dt", "updated_dt"].includes(playerStat[0])) {
                 return stats;
               } else {
                 stats.push(
                   <li>
-                    <strong>{playerStat[0]}:</strong> {playerStat[1]}
+                    <strong>{playerStat[0]}:</strong> {playerStat[1].toString()}
                   </li>
                 );
               }
