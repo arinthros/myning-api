@@ -4,10 +4,10 @@ import { validToken } from "../../../key-check";
 import { headers } from "next/headers";
 
 export async function PATCH(req: Request) {
-  const headersList = headers()
-  const token = headersList.get('authorization')
+  const headersList = headers();
+  const token = headersList.get("authorization");
 
-  if (!token || !validToken(token?.split(' ')[1])) {
+  if (!token || !validToken(token?.split(" ")[1])) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -23,7 +23,7 @@ export async function PATCH(req: Request) {
   } else {
     const playerStats = await prisma.playerStats.update({
       where: {
-        playerId: id
+        player_id: id,
       },
       data: {
         ...stats,

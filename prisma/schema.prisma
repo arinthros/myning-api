@@ -7,54 +7,55 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url = env("DB_URL")
+  url      = env("DB_URL")
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  password  String
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
 }
 
 model Player {
-  id        Int    @id
-  name      String @unique
-  playerStats PlayerStats?
+  id    Int          @id
+  name  String       @unique
+  icon  String
+  level Int
+  stats PlayerStats?
 }
 
 model PlayerStats {
-  id                String  @id @default(uuid())
-  player            Player  @relation(fields: [playerId], references: [id])
-  playerId          Int     @unique
-  armorPurchased    Int     @default(0)
-  armyDefeats       Int     @default(0)
-  battlesWon        Int     @default(0)
-  deaths            Int     @default(0)
-  enemiesDefeated   Int     @default(0)
-  experience        String  @default("0")
-  goldEarned        Int     @default(0)
-  goldSpentOnGear   Int     @default(0)
-  level             Int     @default(0)
-  mineralsMined     Int     @default(0)
-  plantsHarvested   Int     @default(0)
-  weaponsPurchased  Int     @default(0)
-  taxesPaid         Float   @default(0.0)
-  soiledPlants      Int     @default(0)
-  timePlayed        String  @default("0")
-  tripsFinished     Int     @default(0)
+  id                 String @id @default(uuid())
+  player             Player @relation(fields: [player_id], references: [id])
+  player_id          Int    @unique
+  armor_purchased    Int    @default(0)
+  army_defeats       Int    @default(0)
+  battles_won        Int    @default(0)
+  deaths             Int    @default(0)
+  enemies_defeated   Int    @default(0)
+  experience         Int    @default(0)
+  gold_earned        Int    @default(0)
+  gold_spent_on_gear Int    @default(0)
+  minerals_mined     Int    @default(0)
+  plants_harvested   Int    @default(0)
+  weapons_purchased  Int    @default(0)
+  taxes_paid         Float  @default(0.0)
+  soiled_plants      Int    @default(0)
+  time_played        String @default("0")
+  trips_finished     Int    @default(0)
 }
 
 model Mine {
-  id Int @id @default(autoincrement())
-  name String @unique
-  mineStats MineStats?
+  id         Int        @id @default(autoincrement())
+  name       String     @unique
+  mine_stats MineStats?
 }
 
 model MineStats {
-  id String @id @default(uuid())
-  mine   Mine @relation(fields: [mineId], references: [id])
-  mineId Int @unique
-  minutes Float
-  kills Int
+  id       String @id @default(uuid())
+  mine     Mine   @relation(fields: [mine_id], references: [id])
+  mine_id  Int    @unique
+  minutes  Float
+  kills    Int
   minerals Int
 }

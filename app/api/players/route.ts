@@ -1,32 +1,37 @@
 import prisma from "@/lib/prisma";
-import { headers } from 'next/headers'
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { validToken } from "../key-check";
 
 export async function POST(req: Request) {
-  const headersList = headers()
-  const token = headersList.get('authorization')
+  const headersList = headers();
+  const token = headersList.get("authorization");
 
-  if (!token || !validToken(token?.split(' ')[1])) {
+  if (!token || !validToken(token?.split(" ")[1])) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { id, name } = await req.json();
+  const { id, name, level, icon } = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
       name,
     },
   });
   if (exists) {
-    return NextResponse.json({ error: "Player already exists" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Player already exists" },
+      { status: 400 }
+    );
   } else {
     const player = await prisma.player.create({
       data: {
         id,
         name,
-        playerStats: {
-          create: {}
-        }
+        level,
+        icon,
+        stats: {
+          create: {},
+        },
       },
     });
     return NextResponse.json(player);
