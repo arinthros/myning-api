@@ -25,24 +25,25 @@ model Player {
 }
 
 model PlayerStats {
-  id                 String @id @default(uuid())
-  player             Player @relation(fields: [player_id], references: [id])
-  player_id          Int    @unique
-  armor_purchased    Int    @default(0)
-  army_defeats       Int    @default(0)
-  battles_won        Int    @default(0)
-  deaths             Int    @default(0)
-  enemies_defeated   Int    @default(0)
-  experienced_earned Int    @default(0)
-  gold_earned        Int    @default(0)
-  gold_spent_on_gear Int    @default(0)
-  minerals_mined     Int    @default(0)
-  plants_harvested   Int    @default(0)
-  weapons_purchased  Int    @default(0)
-  taxes_paid         Float  @default(0.0)
-  soiled_plants      Int    @default(0)
-  time_played        String @default("0")
-  trips_finished     Int    @default(0)
+  id                  String @id @default(uuid())
+  player              Player @relation(fields: [player_id], references: [id])
+  player_id           Int    @unique
+  armor_purchased     Int    @default(0)
+  army_defeats        Int    @default(0)
+  battles_won         Int    @default(0)
+  deaths              Int    @default(0)
+  enemies_defeated    Int    @default(0)
+  experienced_earned  Int    @default(0)
+  gold_earned         Int    @default(0)
+  gold_spent_on_gear  Int    @default(0)
+  minerals_mined      Int    @default(0)
+  plants_harvested    Int    @default(0)
+  weapons_purchased   Int    @default(0)
+  taxes_paid          Float  @default(0.0)
+  soul_credits_earned Float  @default(0.0)
+  soiled_plants       Int    @default(0)
+  time_played         String @default("0")
+  trips_finished      Int    @default(0)
 }
 
 model Mine {
