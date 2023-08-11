@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const player = await prisma.player.findUnique({
-    where: { id: parseInt(params.id, 10) },
+    where: { id: params.id },
     include: { stats: true },
   });
 
