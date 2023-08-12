@@ -55,7 +55,10 @@ export async function DELETE(
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   const headersList = headers();
   const token = headersList.get("authorization");
 
@@ -63,7 +66,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { id: newId, name, level, icon, stats } = await req.json();
+  const { id: newId, name, level, icon, score, stats } = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
       id: params.id,
@@ -82,9 +85,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
         name,
         level,
         icon,
+        score,
         stats: {
-          update: stats
-        }
+          update: stats,
+        },
       },
     });
     return NextResponse.json(playerStats);

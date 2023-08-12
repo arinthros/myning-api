@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { id, name, level, icon, stats } = await req.json();
+  const { id, name, level, icon, stats, score } = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
       name,
@@ -29,6 +29,7 @@ export async function POST(req: Request) {
         name,
         level,
         icon,
+        score,
         stats: {
           create: stats ?? {},
         },
