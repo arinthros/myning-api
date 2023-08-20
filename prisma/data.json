@@ -1,0 +1,68 @@
+{
+  "mines": [
+    {
+      "name": "Hole in the ground",
+      "type": "regular"
+    },
+    {
+      "name": "Small pit",
+      "type": "regular"
+    },
+    {
+      "name": "Trench",
+      "type": "regular"
+    },
+    {
+      "name": "Tin mine",
+      "type": "resource"
+    },
+    {
+      "name": "Large pit",
+      "type": "regular"
+    },
+    {
+      "name": "Training Ground",
+      "type": "combat"
+    },
+    {
+      "name": "Cave",
+      "type": "regular"
+    },
+    {
+      "name": "Coal mine",
+      "type": "resource"
+    },
+    {
+      "name": "Cavern",
+      "type": "regular"
+    },
+    {
+      "name": "Battle Ground",
+      "type": "combat"
+    },
+    {
+      "name": "Death Valley",
+      "type": "regular"
+    },
+    {
+      "name": "Cave System",
+      "type": "regular"
+    },
+    {
+      "name": "Gold mine",
+      "type": "resource"
+    },
+    {
+      "name": "Meteor Crater",
+      "type": "regular"
+    },
+    {
+      "name": "Canyon",
+      "type": "regular"
+    },
+    {
+      "name": "Chasm",
+      "type": "regular"
+    }
+  ]
+}

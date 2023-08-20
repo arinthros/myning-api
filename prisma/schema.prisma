@@ -30,6 +30,7 @@ model Player {
   level      Int          @default(1)
   score      Float        @default(0.0)
   stats      PlayerStats?
+  mine_stats MineStats[]
 }
 
 model PlayerStats {
@@ -57,10 +58,10 @@ model PlayerStats {
 }
 
 model Mine {
-  id         String     @id
   created_dt DateTime   @default(now())
   updated_dt DateTime   @updatedAt
-  name       String     @unique
+  name       String     @id @unique
+  type       String
   stats      MineStats?
 }
 
@@ -68,9 +69,11 @@ model MineStats {
   id         String   @id @default(uuid())
   created_dt DateTime @default(now())
   updated_dt DateTime @updatedAt
-  mine       Mine     @relation(fields: [mine_id], references: [id])
-  mine_id    String   @unique
-  minutes    Float
-  kills      Int
-  minerals   Int
+  mine       Mine     @relation(fields: [mine_name], references: [name])
+  mine_name  String   @unique
+  player     Player   @relation(fields: [player_id], references: [id])
+  player_id  String   @unique
+  minutes    Float    @default(0)
+  kills      Int      @default(0)
+  minerals   Int      @default(0)
 }
