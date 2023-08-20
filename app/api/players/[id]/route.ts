@@ -18,10 +18,19 @@ export async function GET(
     },
   });
 
+  const mineStats = await prisma.mineStats.groupBy({
+    by: ['player_id'],
+    _sum: {
+      kills: true,
+      minerals: true,
+      minutes: true,
+    }
+  })
+
   if (!player) {
     return NextResponse.json({ error: "Player not found" }, { status: 404 });
   } else {
-    return NextResponse.json(player);
+    return NextResponse.json({...player, mine_stats: mineStats});
   }
 }
 
