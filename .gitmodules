@@ -1,0 +1,3 @@
+[submodule "myning"]
+	path = myning
+	url = https://github.com/TheRedPanda17/myning

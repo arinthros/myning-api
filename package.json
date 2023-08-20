@@ -6,29 +6,33 @@
     "start": "next start",
     "lint": "next lint",
     "api-generate": "prisma generate",
-    "api-push": "prisma db push",
+    "api-push": "prisma db push && yarn seed",
     "api-migrate": "prisma db migrate",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "import-data": "node ./scripts/generate-objects.js",
+    "seed": "yarn import-data && ts-node --project tsconfig-seed.json prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^4.14.0",
-    "@types/node": "^18.11.9",
-    "@types/react": "^18.0.25",
-    "bcrypt": "^5.1.0",
-    "next": "^13.4.2",
-    "next-auth": "^4.22.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1"
+    "@prisma/client": "5.1.1",
+    "@types/node": "20.4.10",
+    "@types/react": "18.0.25",
+    "bcrypt": "5.1.0",
+    "next": "13.4.2",
+    "next-auth": "4.22.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hot-toast": "2.4.1"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "autoprefixer": "^10.4.4",
+    "@types/bcrypt": "5.0.0",
+    "autoprefixer": "10.4.4",
     "eslint": "8.11.0",
-    "eslint-config-next": "^13.0.5",
-    "postcss": "^8.4.12",
-    "prisma": "^4.14.0",
-    "tailwindcss": "^3.0.23",
-    "typescript": "^4.6.2"
+    "eslint-config-next": "13.0.5",
+    "postcss": "8.4.12",
+    "prisma": "5.1.1",
+    "tailwindcss": "3.0.23",
+    "ts-node": "10.9.1",
+    "typescript": "5.1.6",
+    "yaml": "2.3.1"
   }
 }
