@@ -55,12 +55,14 @@ model PlayerStats {
   soiled_plants       Int      @default(0)
   time_played         String   @default("0")
   trips_finished      Int      @default(0)
+  discovered_species  Int      @default(0)
+  fallen_soldiers     Int      @default(0)
 }
 
 model Mine {
-  created_dt DateTime   @default(now())
-  updated_dt DateTime   @updatedAt
-  name       String     @id @unique
+  created_dt DateTime    @default(now())
+  updated_dt DateTime    @updatedAt
+  name       String      @id @unique
   type       String
   stats      MineStats[]
 }
@@ -76,5 +78,6 @@ model MineStats {
   minutes    Float    @default(0)
   kills      Int      @default(0)
   minerals   Int      @default(0)
+
   @@unique([mine_name, player_id])
 }
