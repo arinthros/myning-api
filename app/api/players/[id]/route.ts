@@ -85,21 +85,36 @@ export async function PATCH(
   if (!exists) {
     return NextResponse.json({ error: "Player not found" }, { status: 404 });
   } else {
-    const playerStats = await prisma.player.update({
-      where: {
-        id: params.id,
-      },
-      data: {
-        id: newId ?? params.id,
-        name,
-        level,
-        icon,
-        score,
-        stats: {
-          update: stats,
+    try {
+      const validKeys = Object.keys(prisma.playerStats.fields).filter(key => !['created_dt', 'updated_dt', 'id', 'player_id'].includes(key));
+      const filteredStats = Object.fromEntries(
+        Object.entries(stats)
+          .filter(([key]) => validKeys.includes(key))
+      );
+
+      const playerStats = await prisma.player.update({
+        where: {
+          id: params.id,
         },
-      },
-    });
-    return NextResponse.json(playerStats);
+        data: {
+          id: newId ?? params.id,
+          name,
+          level,
+          icon,
+          score,
+          stats: {
+            update: filteredStats,
+          },
+        },
+        include: {
+          stats: true,
+        },
+      });
+      return NextResponse.json(playerStats);
+    } catch (error) {
+      if(error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 400 })
+      }
+    }
   }
 }
