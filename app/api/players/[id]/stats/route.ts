@@ -4,7 +4,7 @@ import { validToken } from "../../../key-check";
 import { headers } from "next/headers";
 
 export async function PATCH(req: Request) {
-  const headersList = headers();
+  const headersList = await headers();
   const token = headersList.get("authorization");
 
   if (!token || !validToken(token?.split(" ")[1])) {

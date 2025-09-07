@@ -39,7 +39,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const id = params.id;
-  const headersList = headers();
+  const headersList = await headers();
   const token = headersList.get("authorization");
 
   if (!token || !validToken(token?.split(" ")[1])) {
@@ -68,7 +68,7 @@ export async function PATCH(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const headersList = headers();
+  const headersList = await headers();
   const token = headersList.get("authorization");
 
   if (!token || !validToken(token?.split(" ")[1])) {

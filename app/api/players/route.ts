@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { validToken } from "../key-check";
 
 export async function POST(req: Request) {
-  const headersList = headers();
+  const headersList = await headers();
   const token = headersList.get("authorization");
 
   if (!token || !validToken(token?.split(" ")[1])) {

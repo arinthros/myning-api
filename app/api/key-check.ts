@@ -9,7 +9,7 @@ const apiKey = process.env.API_KEY
  * import { NextResponse } from 'next/server'
  * 
  * export default function POST(req: Request) {
- *   const headersList = headers()
+ *   const headersList = await headers()
  *   const token = headersList.get('authorization')
  * 
  *   if (!token || !validToken(token?.split(' ')[1])) {

@@ -27,7 +27,7 @@ export default async function middleware(req: NextRequest) {
 
   if (!session && authenticatedRoutes.includes(path)) {
     return NextResponse.redirect(new URL("/login", req.url));
-  } else if (session && unauthenticatedRoutes.includes('path')) {
+  } else if (session && unauthenticatedRoutes.includes(path)) {
     return NextResponse.redirect(new URL("/players", req.url));
   }
   return NextResponse.next();
