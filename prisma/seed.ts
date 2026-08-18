@@ -1,5 +1,3 @@
-#!/usr/bin/env ts-node
-
 import prisma from "../lib/prisma";
 import data from './data.json';
 
