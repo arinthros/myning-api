@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { validToken } from "../../../key-check";
 import { headers } from "next/headers";
-import { MineStats } from "@prisma/client";
+import type { MineStatsModel } from "@/lib/generated/prisma/models";
 
 export async function GET(
   _req: Request,
@@ -35,7 +35,7 @@ export async function PATCH(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { mine_stats: mineStats }: { mine_stats: Array<Omit<MineStats, 'id' | 'created_dt' | 'updated_dt' | 'player_id'>>} = await req.json();
+  const { mine_stats: mineStats }: { mine_stats: Array<Omit<MineStatsModel, 'id' | 'created_dt' | 'updated_dt' | 'player_id'>>} = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
       id,

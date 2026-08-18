@@ -16,8 +16,10 @@
     "seed": "yarn import-data && tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "6.19.3",
+    "@prisma/adapter-mariadb": "7.9.1",
+    "@prisma/client": "7.9.1",
     "bcrypt": "6.0.0",
+    "dotenv": "17.2.4",
     "next": "16.3.1",
     "next-auth": "4.24.15",
     "react": "19.2.8",
@@ -33,7 +35,7 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.1",
     "postcss": "8.5.26",
-    "prisma": "6.19.3",
+    "prisma": "7.9.1",
     "tailwindcss": "3.0.23",
     "tsx": "4.23.12",
     "typescript": "5.9.3",
