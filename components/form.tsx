@@ -21,8 +21,8 @@ export default function Form({ type }: { type: "login" | "register" }) {
             redirect: false,
             email: e.currentTarget.email.value,
             password: e.currentTarget.password.value,
-            // @ts-ignore
-          }).then(({ error }) => {
+          }).then((res) => {
+            const error = res?.error;
             if (error) {
               setLoading(false);
               toast.error(error);

@@ -113,9 +113,8 @@ export async function PATCH(
       });
       return NextResponse.json(playerStats);
     } catch (error) {
-      if(error instanceof Error) {
-        return NextResponse.json({ error: error.message }, { status: 400 })
-      }
+      const message = error instanceof Error ? error.message : "Unknown error";
+      return NextResponse.json({ error: message }, { status: 400 })
     }
   }
 }
