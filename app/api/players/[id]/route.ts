@@ -5,9 +5,9 @@ import { headers } from "next/headers";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const { id } = await params;
 
   const player = await prisma.player.findUnique({
     where: {
@@ -36,9 +36,9 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const { id } = await params;
   const headersList = await headers();
   const token = headersList.get("authorization");
 
@@ -66,8 +66,9 @@ export async function DELETE(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const headersList = await headers();
   const token = headersList.get("authorization");
 
@@ -78,7 +79,7 @@ export async function PATCH(
   const { id: newId, name, level, icon, score, stats } = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
-      id: params.id,
+      id,
     },
   });
 
@@ -94,10 +95,10 @@ export async function PATCH(
 
       const playerStats = await prisma.player.update({
         where: {
-          id: params.id,
+          id,
         },
         data: {
-          id: newId ?? params.id,
+          id: newId ?? id,
           name,
           level,
           icon,

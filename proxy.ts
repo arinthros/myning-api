@@ -1,17 +1,14 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-const authenticatedRoutes: Array<string> = [
-  '/players',
-  '/players/[id]',
-]
+const authenticatedRoutePrefixes = ['/players']
 
 const unauthenticatedRoutes = [
   '/login',
   '/register'
 ]
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   // Get the pathname of the request (e.g. /, /protected)
   const path = req.nextUrl.pathname;
 
@@ -25,10 +22,14 @@ export default async function middleware(req: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   });
 
-  if (!session && authenticatedRoutes.includes(path)) {
+  if (!session && authenticatedRoutePrefixes.some((prefix) => path === prefix || path.startsWith(`${prefix}/`))) {
     return NextResponse.redirect(new URL("/login", req.url));
   } else if (session && unauthenticatedRoutes.includes(path)) {
     return NextResponse.redirect(new URL("/players", req.url));
   }
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|opengraph-image.png).*)"],
+};

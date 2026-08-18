@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { mineName: string } }
+  { params }: { params: Promise<{ mineName: string }> }
 ) {
+  const { mineName } = await params;
 
   const mineStats = await prisma.mineStats.groupBy({
     by: ['mine_name'],
     where: {
-      mine_name: params.mineName,
+      mine_name: mineName,
     },
     _sum: {
       kills: true,

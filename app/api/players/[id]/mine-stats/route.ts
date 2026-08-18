@@ -6,9 +6,9 @@ import { MineStats } from "@prisma/client";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const { id } = await params;
 
   const mineStats = await prisma.mineStats.findMany({
     where: {
@@ -25,8 +25,9 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const headersList = await headers();
   const token = headersList.get("authorization");
 
@@ -37,7 +38,7 @@ export async function PATCH(
   const { mine_stats: mineStats }: { mine_stats: Array<Omit<MineStats, 'id' | 'created_dt' | 'updated_dt' | 'player_id'>>} = await req.json();
   const exists = await prisma.player.findUnique({
     where: {
-      id: params.id,
+      id,
     },
   });
 
@@ -47,13 +48,13 @@ export async function PATCH(
     const updatedStats = await Promise.all(mineStats.map(mine => {
       const { mine_name, minutes, kills, minerals } = mine;
       return prisma.mineStats.upsert({
-        where: { mine_name_player_id: { mine_name, player_id: params.id } }, 
+        where: { mine_name_player_id: { mine_name, player_id: id } },
         create: {
           kills,
           minerals,
           minutes,
           mine_name,
-          player_id: params.id
+          player_id: id
         },
         update: {
           kills,
@@ -68,8 +69,9 @@ export async function PATCH(
 }
 
 export async function POST(req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const headersList = await headers();
   const token = headersList.get("authorization");
 
@@ -81,7 +83,7 @@ export async function POST(req: Request,
   const exists = await prisma.mineStats.findFirst({
     where: {
       mine_name,
-      player_id: params.id
+      player_id: id
     },
   });
   if (exists) {
@@ -93,7 +95,7 @@ export async function POST(req: Request,
     const mineStat = await prisma.mineStats.create({
       data: {
         mine_name,
-        player_id: params.id,
+        player_id: id,
         kills,
         minutes,
         minerals,

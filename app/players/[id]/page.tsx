@@ -1,8 +1,13 @@
 import prisma from "@/lib/prisma";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const player = await prisma.player.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: { stats: true },
   });
 
